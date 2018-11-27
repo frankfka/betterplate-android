@@ -48,7 +48,7 @@ public abstract class MainDatabase extends RoomDatabase {
 
     private static MainDatabase create(final Context context) {
         return RoomAsset.databaseBuilder(
-                context, MainDatabase.class, "main_database.db").fallbackToDestructiveMigration().build();
+                context, MainDatabase.class, "main_database.db").build();
     }
 
 }
