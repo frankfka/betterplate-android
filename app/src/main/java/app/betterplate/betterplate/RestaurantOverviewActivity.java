@@ -78,7 +78,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolBar));
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setTitle(restaurant.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 

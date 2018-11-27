@@ -12,12 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
@@ -81,23 +85,14 @@ public class RestaurantMenusActivity extends AppCompatActivity {
             }
         });
 
-        setUpDataViews();
-
-    }
-
-    /**
-     * This creates the menu views and the spinner sorting
-     */
-    private void setUpDataViews() {
-
         try {
             restaurant = databaseService.getRestaurantFromId(restaurantId);
             menus = databaseService.getAllMenusFromRestaurant(restaurantId);
 
             // Try to add another menu
-//            Menu allItems = new Menu(Integer.MIN_VALUE, "All Items", restaurantId);
-//            allRestaurantFoods = databaseService.getAllFoodsFromRestaurant(restaurantId);
-//            menus.add(0, allItems);
+            Menu allItems = new Menu(Integer.MIN_VALUE, "All Items", restaurantId);
+            allRestaurantFoods = databaseService.getAllFoodsFromRestaurant(restaurantId);
+            menus.add(0, allItems);
 
         } catch (ExecutionException | InterruptedException e) {
             Log.e(LOGTAG, "Error retrieving menus from database for restaurant ID ".concat(String.valueOf(restaurantId)), e);
@@ -114,7 +109,8 @@ public class RestaurantMenusActivity extends AppCompatActivity {
         // Populate all the views
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(restaurant.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -191,15 +187,15 @@ public class RestaurantMenusActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             List<Food> foodsInMenu = null;
             bundle.putString(MENU_NAME_KEY, menus.get(position).getName());
-//            if (position == 0) {
-//                foodsInMenu = allRestaurantFoods;
-//            } else {
+            if (position == 0) {
+                foodsInMenu = allRestaurantFoods;
+            } else {
                 try {
                     foodsInMenu = new ArrayList<>(databaseService.getFoodFromMenuId(menus.get(position).getId()));
                 } catch (ExecutionException | InterruptedException e) {
                     Log.e(LOGTAG, "Error retrieving foods from menu ID: ".concat(String.valueOf(menus.get(position).getId())), e);
                 }
-//            }
+            }
             foodsInMenu = SortService.sortFoods(foodsInMenu, sortBy);
             bundle.putSerializable(FOODS_KEY, (Serializable) foodsInMenu);
             fragment.setArguments(bundle);
@@ -246,6 +242,8 @@ public class RestaurantMenusActivity extends AppCompatActivity {
             foods = (List<Food>) getArguments().getSerializable(FOODS_KEY);
             // Send the Menu ID to the adapter
             menuListAdapter = new MenuListAdapter(foods);
+
+
             menuSearch = rootView.findViewById(R.id.menuItemSearchBar);
             menuSearch.setMaxWidth(Integer.MAX_VALUE);
             menuSearch.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {

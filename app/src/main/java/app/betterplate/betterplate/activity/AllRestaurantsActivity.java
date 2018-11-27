@@ -40,9 +40,9 @@ public class AllRestaurantsActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolBar));
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setTitle("All Restaurants");
 
         // Get Available restaurants from database
         List<Restaurant> allRestaurants = new ArrayList<>();
