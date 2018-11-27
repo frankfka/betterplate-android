@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="darkText">
+        <item name="android:textColor">@color/colorTextDark</item>
+    </style>
+
+    <style name="normalText">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="accentText">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="normalText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="darkText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="accentText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="titleText" parent="darkText.bold">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="itemTitleText" parent="darkText.bold">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="itemDetailsText" parent="normalText">
+
+    </style>
+
+    <style name="itemNutritionText" parent="accentText">
+
+    </style>
+
+    <style name="itemPageTitle" parent="darkText.bold">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="itemPageHeading" parent="darkText.bold">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@drawable/white_container_bottom_border</item>
+        <item name="android:paddingBottom">4sp</item>
+    </style>
+
+    <style name="itemPageCustomizationItemHeading" parent="normalText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="nutritionHeading" parent="normalText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="nutritionValue" parent="accentText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+</resources>
