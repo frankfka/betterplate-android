@@ -3,6 +3,9 @@ package app.betterplate.betterplate.data.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.huma.room_for_asset.RoomAsset;
 
@@ -47,6 +50,8 @@ public abstract class MainDatabase extends RoomDatabase {
     public abstract FavoriteRestaurantsDao favoriteRestaurantsDao();
 
     private static MainDatabase create(final Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("instantiated", false).commit();
+        context.getDatabasePath("main_database.db").delete();
         return RoomAsset.databaseBuilder(
                 context, MainDatabase.class, "main_database.db").build();
     }
