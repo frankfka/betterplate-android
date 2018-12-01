@@ -40,4 +40,5 @@
     <string name="filter_menu_items">Filter Menu Items</string>
     <string name="clear_search_text">Clear Search Text</string>
     <string name="filter_restaurants">Filter Restaurants</string>
+    <string name="contact_us">Contact Us</string>
 </resources>

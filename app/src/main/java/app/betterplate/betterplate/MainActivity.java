@@ -81,6 +81,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.contactUsButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent feedbackEmail = new Intent(Intent.ACTION_SEND);
+                feedbackEmail.setType("text/email");
+                feedbackEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"frank@betterplate.app"});
+                feedbackEmail.putExtra(Intent.EXTRA_SUBJECT, "Betterplate Feedback");
+                startActivity(Intent.createChooser(feedbackEmail, "Send Feedback:"));
+            }
+
+        });
 
     }
 
