@@ -3,6 +3,10 @@ package app.betterplate.betterplate.data.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.betterplate.betterplate.dao.core.FoodComponentDao;
 import app.betterplate.betterplate.dao.core.FoodDao;
@@ -17,6 +21,7 @@ import app.betterplate.betterplate.data.core.MealItem;
 import app.betterplate.betterplate.data.core.Menu;
 import app.betterplate.betterplate.data.core.Restaurant;
 import app.betterplate.betterplate.data.preferences.FavoriteRestaurant;
+import app.betterplate.betterplate.data.preferences.PrefFavoriteRestaurant;
 
 @Database(entities = {Food.class, FoodComponent.class,
         FoodComponentJoin.class, Menu.class, Restaurant.class, MealItem.class
@@ -45,7 +50,20 @@ public abstract class MainDatabase extends RoomDatabase {
     public abstract FavoriteRestaurantsDao favoriteRestaurantsDao();
 
     private static MainDatabase create(final Context context) {
-        return (MainDatabase) RoomPreloadUtil.getPreloadedDatabaseBuilder(context, MainDatabase.class, "main_database.db", true).build();
+        List<PrefFavoriteRestaurant> userFavoriteRestaurants = new ArrayList<>(PreferencesDatabase.getInstance(context).prefFavoriteRestaurantsDao().getAllFavorites());
+        PreferencesDatabase.getInstance(context).close();
+        MainDatabase mainDatabase = (MainDatabase) RoomPreloadUtil.getPreloadedDatabaseBuilder(context, MainDatabase.class, "main_database.db", true).allowMainThreadQueries().build();
+        mainDatabase.favoriteRestaurantsDao().deleteAllFavorites();
+        for (PrefFavoriteRestaurant prefFavoriteRestaurant: userFavoriteRestaurants) {
+            mainDatabase.favoriteRestaurantsDao().insertToFavorites(new FavoriteRestaurant(prefFavoriteRestaurant.getRestaurantId()));
+        }
+        return mainDatabase;
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        instance = null;
     }
 
 }

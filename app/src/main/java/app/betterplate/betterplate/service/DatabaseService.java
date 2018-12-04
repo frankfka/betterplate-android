@@ -16,14 +16,18 @@ import app.betterplate.betterplate.data.core.FoodComponent;
 import app.betterplate.betterplate.data.database.MainDatabase;
 import app.betterplate.betterplate.data.core.Menu;
 import app.betterplate.betterplate.data.core.Restaurant;
+import app.betterplate.betterplate.data.database.PreferencesDatabase;
 import app.betterplate.betterplate.data.preferences.FavoriteRestaurant;
+import app.betterplate.betterplate.data.preferences.PrefFavoriteRestaurant;
 
 public class DatabaseService {
 
     private MainDatabase mainDatabase;
+    private Context context;
 
     public DatabaseService(Context context) {
         this.mainDatabase = MainDatabase.getInstance(context);
+        this.context = context;
     }
 
     public List<Restaurant> getAllRestaurants() throws ExecutionException, InterruptedException {
@@ -132,7 +136,11 @@ public class DatabaseService {
         {
             @Override
             protected Void doInBackground(Integer... restaurantId) {
-                mainDatabase.favoriteRestaurantsDao().insertToFavorites(new FavoriteRestaurant(restaurantId[0]));
+                mainDatabase.close();
+                PreferencesDatabase preferencesDatabase = PreferencesDatabase.getInstance(context);
+                preferencesDatabase.prefFavoriteRestaurantsDao().insertToFavorites(new PrefFavoriteRestaurant(restaurantId[0]));
+                preferencesDatabase.close();
+                mainDatabase = MainDatabase.getInstance(context);
                 return null;
             }
         }
@@ -144,7 +152,11 @@ public class DatabaseService {
         {
             @Override
             protected Void doInBackground(Integer... restaurantId) {
-                mainDatabase.favoriteRestaurantsDao().deleteFromFavorites(new FavoriteRestaurant(restaurantId[0]));
+                mainDatabase.close();
+                PreferencesDatabase preferencesDatabase = PreferencesDatabase.getInstance(context);
+                preferencesDatabase.prefFavoriteRestaurantsDao().deleteFromFavorites(new PrefFavoriteRestaurant(restaurantId[0]));
+                preferencesDatabase.close();
+                mainDatabase = MainDatabase.getInstance(context);
                 return null;
             }
         }

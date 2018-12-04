@@ -16,10 +16,16 @@ public interface FavoriteRestaurantsDao {
     @Insert
     void insertToFavorites(FavoriteRestaurant favoriteRestaurant);
 
+    @Insert
+    void insertAllToFavorites(List<FavoriteRestaurant> favoriteRestaurant);
+
     @Delete
     void deleteFromFavorites(FavoriteRestaurant favoriteRestaurant);
 
     @Query("SELECT * FROM restaurant INNER JOIN pref_favorite_restaurants ON pref_favorite_restaurants.restaurant_id = restaurant.restaurant_id")
     List<Restaurant> getAllFavoriteRestaurants();
+
+    @Query("DELETE FROM pref_favorite_restaurants")
+    void deleteAllFavorites();
 
 }
