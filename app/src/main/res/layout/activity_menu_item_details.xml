@@ -61,7 +61,7 @@
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/FoodDetailsNestedScrollView"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
             android:overScrollMode="never"
@@ -72,9 +72,10 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:background="@color/white">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingBottom="100dp"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@+id/itemPageTitle"
@@ -160,10 +161,37 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:nestedScrollingEnabled="false"
-                    android:paddingBottom="100dp"
+                    android:paddingBottom="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/item_page_section_header_nutrition" />
+
+                <TextView
+                    android:id="@+id/item_page_section_header_nutrition_breakdown"
+                    style="@style/itemPageHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Nutrition Breakdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/foodNutritionList" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/nutrition_breakdown_chart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:minHeight="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_page_section_header_nutrition_breakdown" />
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
