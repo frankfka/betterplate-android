@@ -72,6 +72,7 @@ public class Nutrition implements Serializable {
         return availableNutritionDetailsMap;
     }
 
+    //TODO compile this with stuff in Constants
     public static Comparator<Nutrition> SORT_BY_INC_CALS = new Comparator<Nutrition>() {
         @Override
         public int compare(Nutrition one, Nutrition other) {
