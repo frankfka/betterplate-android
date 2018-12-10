@@ -1,4 +1,4 @@
-package app.betterplate.betterplate;
+package app.betterplate.betterplate.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import app.betterplate.betterplate.R;
 import app.betterplate.betterplate.activity.AllRestaurantsActivity;
 import app.betterplate.betterplate.activity.CurrentMealActivity;
 import app.betterplate.betterplate.adapter.RestaurantListAdapter;

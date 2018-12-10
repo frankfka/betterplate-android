@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
@@ -23,7 +23,8 @@
         <activity android:name=".activity.RestaurantMenusActivity" />
         <activity android:name=".activity.MenuItemDetailsActivity" />
         <activity android:name=".activity.CurrentMealActivity" />
-        <activity android:name=".RestaurantOverviewActivity"></activity>
+        <activity android:name=".activity.RestaurantOverviewActivity" />
+        <activity android:name=".activity.FoodSearchResultsActivity"></activity>
     </application>
 
 </manifest>

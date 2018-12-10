@@ -1,4 +1,4 @@
-package app.betterplate.betterplate;
+package app.betterplate.betterplate.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TimingLogger;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,12 +20,15 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import app.betterplate.betterplate.Constants;
+import app.betterplate.betterplate.R;
 import app.betterplate.betterplate.activity.CurrentMealActivity;
 import app.betterplate.betterplate.activity.RestaurantMenusActivity;
 import app.betterplate.betterplate.adapter.MenuListAdapter;
@@ -172,13 +176,14 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
     private void setUpFoodFinder() {
 
         // Get all the inputs
-        MultiSlider calSlider = findViewById(R.id.calorieSlider);
-        MultiSlider proteinSlider = findViewById(R.id.proteinSlider);
-        MultiSlider fatSlider = findViewById(R.id.fatsSlider);
-        MultiSlider carbSlider = findViewById(R.id.carbsSlider);
+        final MultiSlider calSlider = findViewById(R.id.calorieSlider);
+        final MultiSlider proteinSlider = findViewById(R.id.proteinSlider);
+        final MultiSlider fatSlider = findViewById(R.id.fatsSlider);
+        final MultiSlider carbSlider = findViewById(R.id.carbsSlider);
         final Button gfButton = findViewById(R.id.glutenFreeButton);
         final Button vegetarianButton = findViewById(R.id.vegetarianButton);
         final Button veganButton = findViewById(R.id.veganButton);
+        TextView searchButton = findViewById(R.id.foodFinderSearchButton);
 
         // Get all the textviews
         final TextView minCaloriesText = findViewById(R.id.minCaloriesText);
@@ -191,10 +196,6 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         final TextView maxCarbsText = findViewById(R.id.maxCarbsText);
 
         // Get all the supporting information
-        boolean isGFSelected = false;
-        boolean isVegetarianSelected = false;
-        boolean isVeganSelected = false;
-
         //TODO could put this on another thread
         int maxCalories = (int) Collections.max(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
         int minCalories = (int) Collections.min(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
@@ -318,15 +319,31 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                 }
             }
         });
+        ///////SEARCH BUTTON/////////
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FoodFinderService foodFinderService = new FoodFinderService();
+                foodFinderService.setMinCalories(calSlider.getThumb(0).getValue());
+                foodFinderService.setMaxCalories(calSlider.getThumb(1).getValue());
+                foodFinderService.setMinProtein(proteinSlider.getThumb(0).getValue());
+                foodFinderService.setMaxProtein(proteinSlider.getThumb(1).getValue());
+                foodFinderService.setMinFat(fatSlider.getThumb(0).getValue());
+                foodFinderService.setMaxFat(fatSlider.getThumb(1).getValue());
+                foodFinderService.setMinCarbs(carbSlider.getThumb(0).getValue());
+                foodFinderService.setMaxCarbs(carbSlider.getThumb(1).getValue());
+                foodFinderService.setGlutenFree(gfButton.getCurrentTextColor() == getColor(R.color.colorAccent));
+                foodFinderService.setVegetarian(vegetarianButton.getCurrentTextColor() == getColor(R.color.colorAccent));
+                foodFinderService.setVegan(veganButton.getCurrentTextColor() == getColor(R.color.colorAccent));
+                List<Food> compatibleFoods = foodFinderService.findFoods(allFoods);
+                Intent intent = new Intent(getApplicationContext(), FoodSearchResultsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(FoodSearchResultsActivity.SEARCH_FOODS_KEY, (Serializable) compatibleFoods);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
-//        FoodFinderService foodFinderService = new FoodFinderService();
-//        foodFinderService.setMinCalories(200);
-//        foodFinderService.setMaxCalories(600);
-//        foodFinderService.setMaxCarbs(50);
-//        foodFinderService.setMinProtein(15);
-//        foodFinderService.setMaxFat(15);
-//        foodFinderService.findFoods(allFoods);
-        //TODO!
     }
 
 

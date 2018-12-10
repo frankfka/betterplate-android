@@ -161,12 +161,6 @@ public class FoodFinderService {
             return listToReturn;
         }
 
-        String testString = "";
-        for(Food food: listToReturn) {
-            testString = testString.concat(food.getName() + "\n");
-        }
-        Log.e("Meal finder service", testString);
-
         return listToReturn;
     }
 }

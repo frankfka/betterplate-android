@@ -15,13 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import app.betterplate.betterplate.Constants;
 import app.betterplate.betterplate.R;
-import app.betterplate.betterplate.RestaurantOverviewActivity;
+import app.betterplate.betterplate.activity.RestaurantOverviewActivity;
 import app.betterplate.betterplate.activity.RestaurantMenusActivity;
 import app.betterplate.betterplate.data.core.Restaurant;
 
