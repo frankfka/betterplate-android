@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -170,17 +171,61 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
      */
     private void setUpFoodFinder() {
 
-        // Get all the sliders
+        // Get all the inputs
         MultiSlider calSlider = findViewById(R.id.calorieSlider);
+        MultiSlider proteinSlider = findViewById(R.id.proteinSlider);
+        MultiSlider fatSlider = findViewById(R.id.fatsSlider);
+        MultiSlider carbSlider = findViewById(R.id.carbsSlider);
+        final Button gfButton = findViewById(R.id.glutenFreeButton);
+        final Button vegetarianButton = findViewById(R.id.vegetarianButton);
+        final Button veganButton = findViewById(R.id.veganButton);
 
-        int maxCalories = (int) Collections.max(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
-        int minCalories = (int) Collections.min(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
+        // Get all the textviews
         final TextView minCaloriesText = findViewById(R.id.minCaloriesText);
         final TextView maxCaloriesText = findViewById(R.id.maxCaloriesText);
+        final TextView minProteinText = findViewById(R.id.minProteinText);
+        final TextView maxProteinText = findViewById(R.id.maxProteinText);
+        final TextView minFatText = findViewById(R.id.minFatText);
+        final TextView maxFatText = findViewById(R.id.maxFatText);
+        final TextView minCarbsText = findViewById(R.id.minCarbsText);
+        final TextView maxCarbsText = findViewById(R.id.maxCarbsText);
+
+        // Get all the supporting information
+        boolean isGFSelected = false;
+        boolean isVegetarianSelected = false;
+        boolean isVeganSelected = false;
+
+        //TODO could put this on another thread
+        int maxCalories = (int) Collections.max(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
+        int minCalories = (int) Collections.min(allFoods, Constants.CALORIE_COMPARATOR).getNutritionalInfo().getCalories();
+        int maxProtein = (int) Collections.max(allFoods, Constants.PROTEIN_COMPARATOR).getNutritionalInfo().getProtein();
+        int minProtein = (int) Collections.min(allFoods, Constants.PROTEIN_COMPARATOR).getNutritionalInfo().getProtein();
+        int maxFat = (int) Collections.max(allFoods, Constants.FAT_COMPARATOR).getNutritionalInfo().getFat();
+        int minFat = (int) Collections.min(allFoods, Constants.FAT_COMPARATOR).getNutritionalInfo().getFat();
+        int maxCarbs = (int) Collections.max(allFoods, Constants.CARBS_COMPARATOR).getNutritionalInfo().getCarbohydrates();
+        int minCarbs = (int) Collections.min(allFoods, Constants.CARBS_COMPARATOR).getNutritionalInfo().getCarbohydrates();
+
+        // Initialize all the sliders
         calSlider.setMin(minCalories, true, true);
         calSlider.setMax(maxCalories, true, true);
-        minCaloriesText.setText(String.valueOf(minCalories));
-        maxCaloriesText.setText(String.valueOf(maxCalories));
+        proteinSlider.setMin(minProtein, true, true);
+        proteinSlider.setMax(maxProtein, true, true);
+        fatSlider.setMin(minFat, true, true);
+        fatSlider.setMax(maxFat, true, true);
+        carbSlider.setMin(minCarbs, true, true);
+        carbSlider.setMax(maxCarbs, true, true);
+
+        // Initialize all the text views
+        minCaloriesText.setText(String.valueOf(minCalories).concat(" Cals"));
+        maxCaloriesText.setText(String.valueOf(maxCalories).concat(" Cals"));
+        minFatText.setText(String.valueOf(minFat).concat(" g"));
+        maxFatText.setText(String.valueOf(maxFat).concat(" g"));
+        minProteinText.setText(String.valueOf(minProtein).concat(" g"));
+        maxProteinText.setText(String.valueOf(maxProtein).concat(" g"));
+        minCarbsText.setText(String.valueOf(minCarbs).concat(" g"));
+        maxCarbsText.setText(String.valueOf(maxCarbs).concat(" g"));
+
+        // Set Listeners
         calSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider,
@@ -189,12 +234,91 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                                        int value)
             {
                 if (thumbIndex == 0) {
-                    minCaloriesText.setText(String.valueOf(value));
+                    minCaloriesText.setText(String.valueOf(value).concat(" Cals"));
                 } else {
-                    maxCaloriesText.setText(String.valueOf(value));
+                    maxCaloriesText.setText(String.valueOf(value).concat(" Cals"));
                 }
             }
         });
+        proteinSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider,
+                                       MultiSlider.Thumb thumb,
+                                       int thumbIndex,
+                                       int value)
+            {
+                if (thumbIndex == 0) {
+                    minProteinText.setText(String.valueOf(value).concat(" g"));
+                } else {
+                    maxProteinText.setText(String.valueOf(value).concat(" g"));
+                }
+            }
+        });
+        carbSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider,
+                                       MultiSlider.Thumb thumb,
+                                       int thumbIndex,
+                                       int value)
+            {
+                if (thumbIndex == 0) {
+                    minCarbsText.setText(String.valueOf(value).concat(" g"));
+                } else {
+                    maxCarbsText.setText(String.valueOf(value).concat(" g"));
+                }
+            }
+        });
+        fatSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider,
+                                       MultiSlider.Thumb thumb,
+                                       int thumbIndex,
+                                       int value)
+            {
+                if (thumbIndex == 0) {
+                    minFatText.setText(String.valueOf(value).concat(" g"));
+                } else {
+                    maxFatText.setText(String.valueOf(value).concat(" g"));
+                }
+            }
+        });
+        gfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gfButton.getCurrentTextColor() == getColor(R.color.colorText)) {
+                    gfButton.setTextColor(getColor(R.color.colorAccent));
+                    gfButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                } else {
+                    gfButton.setTextColor(getColor(R.color.colorText));
+                    gfButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                }
+            }
+        });
+        vegetarianButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vegetarianButton.getCurrentTextColor() == getColor(R.color.colorText)) {
+                    vegetarianButton.setTextColor(getColor(R.color.colorAccent));
+                    vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                } else {
+                    vegetarianButton.setTextColor(getColor(R.color.colorText));
+                    vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                }
+            }
+        });
+        veganButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(veganButton.getCurrentTextColor() == getColor(R.color.colorText)) {
+                    veganButton.setTextColor(getColor(R.color.colorAccent));
+                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                } else {
+                    veganButton.setTextColor(getColor(R.color.colorText));
+                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                }
+            }
+        });
+
 //        FoodFinderService foodFinderService = new FoodFinderService();
 //        foodFinderService.setMinCalories(200);
 //        foodFinderService.setMaxCalories(600);
@@ -204,6 +328,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
 //        foodFinderService.findFoods(allFoods);
         //TODO!
     }
+
 
     // Allow for back navigation using the toolbar
     @Override

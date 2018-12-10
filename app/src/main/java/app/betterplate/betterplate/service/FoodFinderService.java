@@ -42,6 +42,34 @@ public class FoodFinderService {
         List<Food> listToReturn = new ArrayList<>(inputFoods);
 
         /**
+         * Special dietary restrictions
+         */
+        if(isGlutenFree) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+                Food food = foodIterator.next();
+                if (food.getIsGF() == 0) {
+                    foodIterator.remove();
+                }
+            }
+        }
+        if(isVegan) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+                Food food = foodIterator.next();
+                if (food.getIsVegan() == 0) {
+                    foodIterator.remove();
+                }
+            }
+        }
+        if(isVegetarian) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+                Food food = foodIterator.next();
+                if (food.getIsVegetarian() == 0) {
+                    foodIterator.remove();
+                }
+            }
+        }
+
+        /**
          * Calories
          */
         if (minCalories != 0) {

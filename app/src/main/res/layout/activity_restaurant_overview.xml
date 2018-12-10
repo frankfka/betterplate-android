@@ -281,7 +281,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView4"
-                        app:scaleStep="50"
+                        app:scaleStep="5"
                         app:stepsThumbsApart="2"
                         app:thumbNumber="2" />
 
@@ -290,7 +290,7 @@
                         style="@style/normalText.bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Protein (g):"
+                        android:text="Protein:"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -349,7 +349,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView6"
-                        app:scaleStep="50"
+                        app:scaleStep="5"
                         app:stepsThumbsApart="2"
                         app:thumbNumber="2" />
 
@@ -358,7 +358,7 @@
                         style="@style/normalText.bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carbohydrates (g): "
+                        android:text="Carbohydrates:"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -418,7 +418,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        app:scaleStep="50"
+                        app:scaleStep="5"
                         app:stepsThumbsApart="2"
                         app:thumbNumber="2" />
 
@@ -427,7 +427,7 @@
                         style="@style/normalText.bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fat (g): "
+                        android:text="Fat:"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -468,6 +468,64 @@
 
                 </android.support.constraint.ConstraintLayout>
 
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/dietaryRestrictionsContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.062"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pickFatsContainer">
+
+                    <Button
+                        android:id="@+id/glutenFreeButton"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_container_primary_outline"
+                        android:padding="8sp"
+                        android:text="Gluten Free"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <Button
+                        android:id="@+id/vegetarianButton"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_container_primary_outline"
+                        android:padding="8sp"
+                        android:text="Vegetarian"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <Button
+                        android:id="@+id/veganButton"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/rounded_container_primary_outline"
+                        android:padding="8sp"
+                        android:text="Vegan"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/glutenFreeButton"
+                        app:layout_constraintStart_toEndOf="@+id/vegetarianButton"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
                 <TextView
                     android:id="@+id/foodFinderSearchButton"
                     style="@style/accentText"
@@ -484,7 +542,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pickFatsContainer" />
+                    app:layout_constraintTop_toBottomOf="@id/dietaryRestrictionsContainer"
+                    app:layout_constraintVertical_bias="1.0" />
+
 
             </android.support.constraint.ConstraintLayout>
 
