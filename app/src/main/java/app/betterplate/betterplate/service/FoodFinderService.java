@@ -44,24 +44,24 @@ public class FoodFinderService {
         /**
          * Special dietary restrictions
          */
-        if(isGlutenFree) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+        if (isGlutenFree) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getIsGF() == 0) {
                     foodIterator.remove();
                 }
             }
         }
-        if(isVegan) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+        if (isVegan) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getIsVegan() == 0) {
                     foodIterator.remove();
                 }
             }
         }
-        if(isVegetarian) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+        if (isVegetarian) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getIsVegetarian() == 0) {
                     foodIterator.remove();
@@ -73,7 +73,7 @@ public class FoodFinderService {
          * Calories
          */
         if (minCalories != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getCalories() < minCalories) {
                     foodIterator.remove();
@@ -81,7 +81,7 @@ public class FoodFinderService {
             }
         }
         if (maxCalories != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getCalories() > maxCalories) {
                     foodIterator.remove();
@@ -96,7 +96,7 @@ public class FoodFinderService {
          * Carbs
          */
         if (minCarbs != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getCarbohydrates() < minCarbs) {
                     foodIterator.remove();
@@ -104,7 +104,7 @@ public class FoodFinderService {
             }
         }
         if (maxCarbs != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getCarbohydrates() > maxCarbs) {
                     foodIterator.remove();
@@ -119,7 +119,7 @@ public class FoodFinderService {
          * Protein
          */
         if (minProtein != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getProtein() < minProtein) {
                     foodIterator.remove();
@@ -127,7 +127,7 @@ public class FoodFinderService {
             }
         }
         if (maxProtein != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getProtein() > maxProtein) {
                     foodIterator.remove();
@@ -142,7 +142,7 @@ public class FoodFinderService {
          * Fat
          */
         if (minFat != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getFat() < minFat) {
                     foodIterator.remove();
@@ -150,7 +150,7 @@ public class FoodFinderService {
             }
         }
         if (maxFat != 0) {
-            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext();) {
+            for (Iterator<Food> foodIterator = listToReturn.iterator(); foodIterator.hasNext(); ) {
                 Food food = foodIterator.next();
                 if (food.getNutritionalInfo().getFat() > maxFat) {
                     foodIterator.remove();
@@ -163,4 +163,21 @@ public class FoodFinderService {
 
         return listToReturn;
     }
+
+    public void resetSettings() {
+        minCalories = 0;
+        maxCalories = 0;
+        minCarbs = 0;
+        maxCarbs = 0;
+        minProtein = 0;
+        maxProtein = 0;
+        minFat = 0;
+        maxFat = 0;
+        maxSodium = 0;
+        maxSugar = 0;
+        isGlutenFree = false;
+        isVegetarian = false;
+        isVegan = false;
+    }
+
 }

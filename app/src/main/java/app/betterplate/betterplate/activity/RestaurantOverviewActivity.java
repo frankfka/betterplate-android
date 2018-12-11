@@ -175,6 +175,9 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
      */
     private void setUpFoodFinder() {
 
+        // Set up service
+        final FoodFinderService foodFinderService = new FoodFinderService();
+
         // Get all the inputs
         final MultiSlider calSlider = findViewById(R.id.calorieSlider);
         final MultiSlider proteinSlider = findViewById(R.id.proteinSlider);
@@ -184,6 +187,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         final Button vegetarianButton = findViewById(R.id.vegetarianButton);
         final Button veganButton = findViewById(R.id.veganButton);
         TextView searchButton = findViewById(R.id.foodFinderSearchButton);
+        TextView resetButton = findViewById(R.id.foodFinderResetButton);
 
         // Get all the textviews
         final TextView minCaloriesText = findViewById(R.id.minCaloriesText);
@@ -194,6 +198,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         final TextView maxFatText = findViewById(R.id.maxFatText);
         final TextView minCarbsText = findViewById(R.id.minCarbsText);
         final TextView maxCarbsText = findViewById(R.id.maxCarbsText);
+        final TextView numResultsText = findViewById(R.id.foodSearchNumResults);
 
         // Get all the supporting information
         //TODO could put this on another thread
@@ -215,6 +220,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         fatSlider.setMax(maxFat, true, true);
         carbSlider.setMin(minCarbs, true, true);
         carbSlider.setMax(maxCarbs, true, true);
+        carbSlider.repositionThumbs();
 
         // Initialize all the text views
         minCaloriesText.setText(String.valueOf(minCalories).concat(" Cals"));
@@ -225,6 +231,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         maxProteinText.setText(String.valueOf(maxProtein).concat(" g"));
         minCarbsText.setText(String.valueOf(minCarbs).concat(" g"));
         maxCarbsText.setText(String.valueOf(maxCarbs).concat(" g"));
+        numResultsText.setText(String.valueOf(allFoods.size()));
 
         // Set Listeners
         calSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
@@ -236,8 +243,12 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             {
                 if (thumbIndex == 0) {
                     minCaloriesText.setText(String.valueOf(value).concat(" Cals"));
+                    foodFinderService.setMinCalories(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     maxCaloriesText.setText(String.valueOf(value).concat(" Cals"));
+                    foodFinderService.setMaxCalories(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -250,8 +261,12 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             {
                 if (thumbIndex == 0) {
                     minProteinText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMinProtein(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     maxProteinText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMaxProtein(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -264,8 +279,12 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             {
                 if (thumbIndex == 0) {
                     minCarbsText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMinCarbs(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     maxCarbsText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMaxCarbs(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -278,8 +297,12 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             {
                 if (thumbIndex == 0) {
                     minFatText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMinFat(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     maxFatText.setText(String.valueOf(value).concat(" g"));
+                    foodFinderService.setMaxFat(value);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -289,9 +312,13 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                 if(gfButton.getCurrentTextColor() == getColor(R.color.colorText)) {
                     gfButton.setTextColor(getColor(R.color.colorAccent));
                     gfButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                    foodFinderService.setGlutenFree(true);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     gfButton.setTextColor(getColor(R.color.colorText));
                     gfButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                    foodFinderService.setGlutenFree(false);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -301,9 +328,13 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                 if(vegetarianButton.getCurrentTextColor() == getColor(R.color.colorText)) {
                     vegetarianButton.setTextColor(getColor(R.color.colorAccent));
                     vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                    foodFinderService.setVegetarian(true);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     vegetarianButton.setTextColor(getColor(R.color.colorText));
                     vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                    foodFinderService.setVegetarian(false);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
@@ -313,28 +344,38 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                 if(veganButton.getCurrentTextColor() == getColor(R.color.colorText)) {
                     veganButton.setTextColor(getColor(R.color.colorAccent));
                     veganButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                    foodFinderService.setVegan(true);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     veganButton.setTextColor(getColor(R.color.colorText));
                     veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                    foodFinderService.setVegan(false);
+                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calSlider.repositionThumbs();
+                fatSlider.repositionThumbs();
+                proteinSlider.repositionThumbs();
+                carbSlider.repositionThumbs();
+                vegetarianButton.setTextColor(getColor(R.color.colorText));
+                vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                veganButton.setTextColor(getColor(R.color.colorText));
+                veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                gfButton.setTextColor(getColor(R.color.colorText));
+                gfButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                numResultsText.setText(String.valueOf(allFoods.size()));
+                foodFinderService.resetSettings();
+            }
+        });
+
         ///////SEARCH BUTTON/////////
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FoodFinderService foodFinderService = new FoodFinderService();
-                foodFinderService.setMinCalories(calSlider.getThumb(0).getValue());
-                foodFinderService.setMaxCalories(calSlider.getThumb(1).getValue());
-                foodFinderService.setMinProtein(proteinSlider.getThumb(0).getValue());
-                foodFinderService.setMaxProtein(proteinSlider.getThumb(1).getValue());
-                foodFinderService.setMinFat(fatSlider.getThumb(0).getValue());
-                foodFinderService.setMaxFat(fatSlider.getThumb(1).getValue());
-                foodFinderService.setMinCarbs(carbSlider.getThumb(0).getValue());
-                foodFinderService.setMaxCarbs(carbSlider.getThumb(1).getValue());
-                foodFinderService.setGlutenFree(gfButton.getCurrentTextColor() == getColor(R.color.colorAccent));
-                foodFinderService.setVegetarian(vegetarianButton.getCurrentTextColor() == getColor(R.color.colorAccent));
-                foodFinderService.setVegan(veganButton.getCurrentTextColor() == getColor(R.color.colorAccent));
                 List<Food> compatibleFoods = foodFinderService.findFoods(allFoods);
                 Intent intent = new Intent(getApplicationContext(), FoodSearchResultsActivity.class);
                 Bundle bundle = new Bundle();

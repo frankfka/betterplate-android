@@ -184,6 +184,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/healthierPicksConstraintLayout">
 
                 <TextView
+                    android:id="@+id/foodFinderResetButton"
+                    style="@style/accentText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset"
+                    android:paddingStart="8sp"
+                    android:paddingBottom="8sp"
+                    android:paddingTop="4sp"
+                    android:paddingEnd="4sp"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/foodFinderTitle"
                     style="@style/titleText"
                     android:layout_width="wrap_content"
@@ -213,7 +228,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView3"
                         app:scaleStep="50"
-                        app:stepsThumbsApart="2"
+                        app:stepsThumbsApart="1"
                         app:thumbNumber="2" />
 
                     <TextView
@@ -282,7 +297,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView4"
                         app:scaleStep="5"
-                        app:stepsThumbsApart="2"
+                        app:stepsThumbsApart="1"
                         app:thumbNumber="2" />
 
                     <TextView
@@ -350,7 +365,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView6"
                         app:scaleStep="5"
-                        app:stepsThumbsApart="2"
+                        app:stepsThumbsApart="1"
                         app:thumbNumber="2" />
 
                     <TextView
@@ -419,7 +434,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView8"
                         app:scaleStep="5"
-                        app:stepsThumbsApart="2"
+                        app:stepsThumbsApart="1"
                         app:thumbNumber="2" />
 
                     <TextView
@@ -470,11 +485,11 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/dietaryRestrictionsContainer"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.062"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/pickFatsContainer">
 
@@ -483,12 +498,13 @@
                         style="@style/normalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="8sp"
-                        android:text="Gluten Free"
-                        android:textSize="16sp"
+                        android:padding="4sp"
+                        android:text="GF"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/veganButton"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
@@ -498,9 +514,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="8sp"
+                        android:padding="4sp"
                         android:text="Vegetarian"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -511,14 +527,12 @@
                         style="@style/normalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="16dp"
                         android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="8sp"
+                        android:padding="4sp"
                         android:text="Vegan"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/glutenFreeButton"
                         app:layout_constraintStart_toEndOf="@+id/vegetarianButton"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
@@ -542,8 +556,29 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dietaryRestrictionsContainer"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/foodSearchNumResultsTitle" />
+
+                <TextView
+                    android:id="@+id/foodSearchNumResultsTitle"
+                    android:layout_width="wrap_content"
+                    style="@style/normalText.bold"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Number of Results: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dietaryRestrictionsContainer" />
+
+                <TextView
+                    android:id="@+id/foodSearchNumResults"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    style="@style/normalText"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/foodSearchNumResultsTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/dietaryRestrictionsContainer" />
 
 
             </android.support.constraint.ConstraintLayout>
