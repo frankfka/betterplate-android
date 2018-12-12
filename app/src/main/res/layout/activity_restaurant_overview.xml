@@ -191,8 +191,6 @@
                     android:text="Reset"
                     android:paddingStart="8sp"
                     android:paddingBottom="8sp"
-                    android:paddingTop="4sp"
-                    android:paddingEnd="4sp"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"

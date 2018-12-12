@@ -10,52 +10,40 @@
     android:paddingStart="16sp"
     android:paddingEnd="16sp">
 
-    <SearchView
-        android:id="@+id/menuItemSearchBar"
+    <ImageButton
+        android:id="@+id/clearSearchButton"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/clear_search_text"
+        android:src="@drawable/clear"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/menuItemSearchBar"
+        app:layout_constraintEnd_toEndOf="@+id/menuItemSearchBar"
+        app:layout_constraintTop_toTopOf="@+id/menuItemSearchBar" />
+
+    <EditText
+        android:id="@+id/menuItemSearchBar"
+        style="@style/normalText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/search_light_rounded"
+        android:drawableStart="@drawable/baseline_search_24"
+        android:drawablePadding="8dp"
+        android:ems="10"
+        android:hint="Filter Foods"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:inputType="textNoSuggestions"
+        android:padding="8dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </SearchView>
-
-    <!--<EditText-->
-    <!--android:id="@+id/menuItemSearchEditText"-->
-    <!--style="@style/normalText"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:background="@drawable/search_light_rounded"-->
-    <!--android:drawableStart="@drawable/baseline_search_24"-->
-    <!--android:drawablePadding="8dp"-->
-    <!--android:ems="10"-->
-    <!--android:hint="@string/filter_menu_items"-->
-    <!--android:importantForAutofill="no"-->
-    <!--android:inputType="textNoSuggestions"-->
-    <!--android:padding="8dp"-->
-    <!--android:textSize="16sp"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<ImageButton-->
-    <!--android:id="@+id/clearSearchButton"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--android:src="@drawable/clear"-->
-    <!--android:visibility="gone"-->
-    <!--android:contentDescription="@string/clear_search_text"-->
-    <!--app:layout_constraintBottom_toBottomOf="@+id/menuItemSearchEditText"-->
-    <!--app:layout_constraintEnd_toEndOf="@+id/menuItemSearchEditText"-->
-    <!--app:layout_constraintTop_toTopOf="@+id/menuItemSearchEditText" />-->
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menuCategoryList"
@@ -65,6 +53,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/menuItemSearchBar">
 
     </android.support.v7.widget.RecyclerView>

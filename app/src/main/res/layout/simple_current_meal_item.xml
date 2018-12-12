@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/mealItemTitle"
-        style="@style/normalText.bold"
+        style="@style/normalTextWithNormalSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="0dp"

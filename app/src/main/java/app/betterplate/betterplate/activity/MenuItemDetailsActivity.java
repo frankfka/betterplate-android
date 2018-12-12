@@ -139,6 +139,7 @@ public class MenuItemDetailsActivity extends AppCompatActivity {
         chart.getLegend().setTextSize(16);
         chart.getLegend().setFormSize(16);
         chart.getLegend().setWordWrapEnabled(true);
+        chart.getLegend().setPosition(Legend.LegendPosition.RIGHT_OF_CHART_CENTER);
         chart.setEntryLabelColor(Color.WHITE);
         chart.setTransparentCircleRadius(0);
         chart.setUsePercentValues(true);

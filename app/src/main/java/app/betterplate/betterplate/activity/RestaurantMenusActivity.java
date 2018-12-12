@@ -1,5 +1,6 @@
 package app.betterplate.betterplate.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -15,9 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -39,6 +42,8 @@ import app.betterplate.betterplate.service.DatabaseService;
 import app.betterplate.betterplate.service.SortService;
 
 public class RestaurantMenusActivity extends AppCompatActivity {
+
+    //TODO make this class prettier
 
     public static String RESTAURANT_ID_KEY = "RESTAURANT_ID_KEY";
     public static String MENU_NAME_KEY = "MENU_NAME_KEY";
@@ -128,8 +133,12 @@ public class RestaurantMenusActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                SearchView menuSearch = findViewById(R.id.menuItemSearchBar);
+                EditText menuSearch = findViewById(R.id.menuItemSearchBar);
+                menuSearch.setText("");
                 menuSearch.clearFocus();
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(menuSearch.getWindowToken(), 0);
             }
 
             @Override
@@ -221,14 +230,13 @@ public class RestaurantMenusActivity extends AppCompatActivity {
     // This represents a fragment - in our case, a list of menu items
     public static class RestaurantMenuFragment extends Fragment {
 
-        private SearchView menuSearch;
         private MenuListAdapter menuListAdapter;
         private List<Food> foods;
         private RecyclerView menuCategoryList;
 
         @Override
         public View onCreateView(LayoutInflater inflater,
-                                 ViewGroup container, Bundle savedInstanceState) {
+                                 final ViewGroup container, Bundle savedInstanceState) {
 
             // This inflates the list of menus
             final View rootView = inflater.inflate(
@@ -243,28 +251,47 @@ public class RestaurantMenusActivity extends AppCompatActivity {
             // Send the Menu ID to the adapter
             menuListAdapter = new MenuListAdapter(foods);
 
-
-            menuSearch = rootView.findViewById(R.id.menuItemSearchBar);
-            menuSearch.setMaxWidth(Integer.MAX_VALUE);
-            menuSearch.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            final EditText searchBar = rootView.findViewById(R.id.menuItemSearchBar);
+            final ImageButton clearTextButton = rootView.findViewById(R.id.clearSearchButton);
+            searchBar.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus) {
-                        menuSearch.setIconified(true);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String input = searchBar.getText().toString();
+                    if (input.isEmpty()) {
+                        clearTextButton.setVisibility(View.GONE);
+                    } else {
+                        clearTextButton.setVisibility(View.VISIBLE);
                     }
+                    menuListAdapter.filter(input);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
                 }
             });
-            menuSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            searchBar.setOnKeyListener(new View.OnKeyListener() {
                 @Override
-                public boolean onQueryTextSubmit(String query) {
-                    menuListAdapter.filter(query);
-                    return true;
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                        searchBar.clearFocus();
+                        InputMethodManager inputManager = (InputMethodManager)
+                                getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputManager.toggleSoftInput(0, 0);
+                        return true;
+                    }
+                    return false;
                 }
-
+            });
+            clearTextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onQueryTextChange(String newText) {
-                    menuListAdapter.filter(newText);
-                    return true;
+                public void onClick(View v) {
+                    searchBar.setText("");
                 }
             });
 
