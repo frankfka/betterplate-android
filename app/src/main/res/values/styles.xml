@@ -40,15 +40,11 @@
     </style>
 
     <style name="titleText" parent="darkText.bold">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="itemTitleText" parent="darkText.bold">
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="itemDetailsText" parent="normalText">
-
+    <style name="itemTitleText" parent="darkText">
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="itemNutritionText" parent="accentText">
@@ -56,12 +52,12 @@
     </style>
 
     <style name="itemPageTitle" parent="darkText.bold">
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <style name="itemPageHeading" parent="darkText.bold">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:background">@drawable/white_container_bottom_border</item>
         <item name="android:paddingBottom">4sp</item>
     </style>
@@ -78,5 +74,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="normalTextWithNormalSize" parent="normalText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="normalBoldedTextWithNormalSize" parent="normalText.bold">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>

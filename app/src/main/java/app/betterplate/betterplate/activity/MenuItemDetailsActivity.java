@@ -119,8 +119,8 @@ public class MenuItemDetailsActivity extends AppCompatActivity {
         float percentageFat = (float) (nutrition.getFat() / totalMacros);
         float percentageProtein = (float) (nutrition.getProtein() / totalMacros);
         entries.add(new PieEntry(percentageProtein, "Protein"));
-        entries.add(new PieEntry(percentageFat, "Fat"));
         entries.add(new PieEntry(percentageCarbs, "Carbohydrates"));
+        entries.add(new PieEntry(percentageFat, "Fat"));
 
         PieDataSet nutritionBreakdownDataset = new PieDataSet(entries, "");
         nutritionBreakdownDataset.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -131,13 +131,12 @@ public class MenuItemDetailsActivity extends AppCompatActivity {
             nutritionData.setDrawValues(false);
         }
         nutritionData.setValueTextColor(Color.WHITE);
-        nutritionData.setValueTextSize(20);
+        nutritionData.setValueTextSize(16);
         nutritionData.setValueFormatter(new PercentFormatter());
         chart.setDrawEntryLabels(false);
         chart.getDescription().setEnabled(false);
         chart.setHoleRadius(20f);
-        chart.getLegend().setPosition(Legend.LegendPosition.RIGHT_OF_CHART_CENTER);
-        chart.getLegend().setTextSize(20);
+        chart.getLegend().setTextSize(16);
         chart.getLegend().setFormSize(16);
         chart.getLegend().setWordWrapEnabled(true);
         chart.setEntryLabelColor(Color.WHITE);

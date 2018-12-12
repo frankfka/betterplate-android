@@ -91,6 +91,7 @@
             app:layout_constraintHorizontal_bias="0.96"
             app:layout_constraintStart_toEndOf="@+id/restaurantPageSortByPrompt"
             app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.TabLayout

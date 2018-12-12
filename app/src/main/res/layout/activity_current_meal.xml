@@ -103,10 +103,10 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="16sp"
                         android:paddingTop="8sp"
-                        android:paddingEnd="16sp"
+                        android:paddingEnd="8sp"
                         android:paddingBottom="8sp"
                         android:text="@string/clear_meal"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

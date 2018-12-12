@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/menuItemDetails"
-            style="@style/itemDetailsText"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/temp_menu_item_details"
