@@ -13,7 +13,6 @@
         android:id="@+id/deleteMealItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/delete_meal_item_content_description"
         android:padding="8sp"
