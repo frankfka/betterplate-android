@@ -16,6 +16,7 @@ public class SortService {
     public static int SORT_BY_DEC_PROTEIN = -2;
     public static int SORT_BY_INC_CARBS = 3;
     public static int SORT_BY_INC_FAT = 4;
+    public static int SORT_BY_DEC_HEALTH = -5;
 
     public static List<Food> sortFoods(List<Food> foods, int sortByType) {
         List<Food> listToSort = new ArrayList<>(foods);
@@ -27,6 +28,14 @@ public class SortService {
             Collections.sort(listToSort, Food.SORT_BY_INC_CARBS);
         } else if (sortByType == SORT_BY_INC_FAT) {
             Collections.sort(listToSort, Food.SORT_BY_INC_FAT);
+        } else if (sortByType == SORT_BY_DEC_HEALTH) {
+            //TODO refactor this somehow?
+            if(listToSort.get(0).getNutritionalInfo().getHealthScore() == 0) {
+                for(Food food: listToSort) {
+                    food.getNutritionalInfo().setHealthScore(HealthService.getHealthScorePublished(food.getNutritionalInfo()));
+                }
+            }
+            Collections.sort(listToSort, Food.SORT_BY_DEC_HEALTH);
         } else {
             Collections.sort(listToSort, Food.DEFAULT_SORT);
         }

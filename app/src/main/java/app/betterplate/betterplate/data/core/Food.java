@@ -145,6 +145,13 @@ public class Food implements Serializable {
         }
     };
 
+    public static Comparator<Food> SORT_BY_DEC_HEALTH = new Comparator<Food>() {
+        @Override
+        public int compare(Food one, Food other) {
+            return Nutrition.SORT_BY_DEC_HEALTH.compare(one.getNutritionalInfo(), other.getNutritionalInfo());
+        }
+    };
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

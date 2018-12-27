@@ -52,6 +52,7 @@ public class RestaurantMenusActivity extends AppCompatActivity {
     private static String SORT_DEC_PROTEIN =  "Protein (High to Low)";
     private static String SORT_INC_CARBS = "Carbohydrates (Low to High)";
     private static String SORT_INC_FAT = "Fat (Low to High)";
+    private static String SORT_DEC_HEALTH = "Health Score (High to Low)";
     private RestaurantMenuCollectionPagerAdapter restaurantMenuCollectionPagerAdapter;
     private ViewPager menuPager;
     private TabLayout menuTabs;
@@ -63,7 +64,7 @@ public class RestaurantMenusActivity extends AppCompatActivity {
     private static final String LOGTAG = "RestaurantMenusActivity";
     private int restaurantId;
     private Spinner sortBySpinner;
-    private final String[] items = new String[]{SORT_INC_CALORIES, SORT_DEC_PROTEIN, SORT_INC_CARBS, SORT_INC_FAT};
+    private final String[] items = new String[]{SORT_INC_CALORIES, SORT_DEC_PROTEIN, SORT_INC_CARBS, SORT_INC_FAT, SORT_DEC_HEALTH};
 
 
     @Override
@@ -162,8 +163,12 @@ public class RestaurantMenusActivity extends AppCompatActivity {
                     newSortedAdapter.setSortBy(SortService.SORT_BY_INC_CARBS);
                 } else if (selection.equals(SORT_INC_FAT)) {
                     newSortedAdapter.setSortBy(SortService.SORT_BY_INC_FAT);
+                } else if (selection.equals(SORT_DEC_HEALTH)) {
+                    newSortedAdapter.setSortBy(SortService.SORT_BY_DEC_HEALTH);
                 }
+                int currentItem = menuPager.getCurrentItem();
                 menuPager.setAdapter(newSortedAdapter);
+                menuPager.setCurrentItem(currentItem);
             }
 
             @Override

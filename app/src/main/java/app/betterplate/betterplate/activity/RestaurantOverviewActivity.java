@@ -11,33 +11,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TimingLogger;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import app.betterplate.betterplate.Constants;
 import app.betterplate.betterplate.R;
-import app.betterplate.betterplate.activity.CurrentMealActivity;
-import app.betterplate.betterplate.activity.RestaurantMenusActivity;
 import app.betterplate.betterplate.adapter.MenuListAdapter;
-import app.betterplate.betterplate.dao.core.FoodDao;
 import app.betterplate.betterplate.data.core.Food;
+import app.betterplate.betterplate.data.core.Nutrition;
 import app.betterplate.betterplate.data.core.Restaurant;
-import app.betterplate.betterplate.data.preferences.FavoriteRestaurant;
 import app.betterplate.betterplate.service.DatabaseService;
 import app.betterplate.betterplate.service.FoodFinderService;
+import app.betterplate.betterplate.service.HealthService;
 import io.apptik.widget.MultiSlider;
 
 import static app.betterplate.betterplate.activity.RestaurantMenusActivity.RESTAURANT_ID_KEY;
@@ -67,6 +61,8 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                     featuredFoods.add(food);
                 }
             }
+            // TODO eventually use healthRanking
+//            featuredFoods = healthRank(allFoods, 5);
 
         } catch (ExecutionException | InterruptedException e) {
             Log.e(LOGTAG, "Error retrieving menus from database for restaurant ID ".concat(String.valueOf(restaurantId)), e);
@@ -169,6 +165,31 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
 
         setUpFoodFinder();
     }
+
+//    /**
+//     * TEST implementation of health ranker - will crash if numberToReturn is bigger than number of foods!!
+//     */
+//    private List<Food> healthRank(List<Food> allFoods, int numberToReturn) {
+//        for (Food food: allFoods) {
+//            food.getNutritionalInfo().setHealthScore(HealthService.getHealthScorePublished(food.getNutritionalInfo()));
+//        }
+//        List<Food> listToSort = new ArrayList<>(allFoods);
+//        Collections.sort(listToSort, Food.SORT_BY_DEC_HEALTH);
+//        List<Food> healthiestFoodsList = new ArrayList<>();
+//
+//        for (Food food: listToSort) {
+//            Nutrition nutrition = food.getNutritionalInfo();
+//            if (nutrition.getCalories() > 300 && nutrition.getCalories() < 800) {
+//                healthiestFoodsList.add(food);
+//            }
+//        }
+//
+//        if (healthiestFoodsList.size() > numberToReturn) {
+//            return healthiestFoodsList.subList(0, numberToReturn);
+//        } else {
+//            return listToSort.subList(0, numberToReturn);
+//        }
+//    }
 
     /**
      * Food finder service

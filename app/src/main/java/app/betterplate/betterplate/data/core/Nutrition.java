@@ -1,6 +1,7 @@
 package app.betterplate.betterplate.data.core;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Ignore;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -12,7 +13,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class Nutrition implements Serializable {
     private double calories;
     private double carbohydrates;
@@ -32,6 +32,8 @@ public class Nutrition implements Serializable {
     private double vitaminC;
     private double calcium;
     private double iron;
+    @Ignore
+    private double healthScore;
 
     public Nutrition(double calories, double carbohydrates, double protein, double fat, double saturatedFat, double transFat, double cholesterol, double sodium, double fiber, double sugar, double vitaminA,
                      double vitaminC, double calcium, double iron) {
@@ -106,6 +108,15 @@ public class Nutrition implements Serializable {
             double oneFat = one.getFat();
             double otherFat = other.getFat();
             return Double.compare(oneFat, otherFat);
+        }
+    };
+
+    public static Comparator<Nutrition> SORT_BY_DEC_HEALTH = new Comparator<Nutrition>() {
+        @Override
+        public int compare(Nutrition one, Nutrition other) {
+            double oneHealth = one.getHealthScore();
+            double otherHealth= other.getHealthScore();
+            return Double.compare(otherHealth, oneHealth);
         }
     };
 
