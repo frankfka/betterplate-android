@@ -64,6 +64,7 @@ public class RestaurantMenusActivity extends AppCompatActivity {
     private static final String LOGTAG = "RestaurantMenusActivity";
     private int restaurantId;
     private Spinner sortBySpinner;
+    // IF YOU MODIFY THE BELOW, DO THE SAME FOR FOODSEARCHRESULTSACTIVITY
     private final String[] items = new String[]{SORT_INC_CALORIES, SORT_DEC_PROTEIN, SORT_INC_CARBS, SORT_INC_FAT, SORT_DEC_HEALTH};
 
 

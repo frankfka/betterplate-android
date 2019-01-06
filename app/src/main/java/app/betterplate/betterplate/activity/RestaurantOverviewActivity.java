@@ -27,11 +27,9 @@ import app.betterplate.betterplate.Constants;
 import app.betterplate.betterplate.R;
 import app.betterplate.betterplate.adapter.MenuListAdapter;
 import app.betterplate.betterplate.data.core.Food;
-import app.betterplate.betterplate.data.core.Nutrition;
 import app.betterplate.betterplate.data.core.Restaurant;
 import app.betterplate.betterplate.service.DatabaseService;
 import app.betterplate.betterplate.service.FoodFinderService;
-import app.betterplate.betterplate.service.HealthService;
 import io.apptik.widget.MultiSlider;
 
 import static app.betterplate.betterplate.activity.RestaurantMenusActivity.RESTAURANT_ID_KEY;
@@ -206,7 +204,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
         final MultiSlider carbSlider = findViewById(R.id.carbsSlider);
         final Button gfButton = findViewById(R.id.glutenFreeButton);
         final Button vegetarianButton = findViewById(R.id.vegetarianButton);
-        final Button veganButton = findViewById(R.id.veganButton);
+//        final Button veganButton = findViewById(R.id.veganButton);
         TextView searchButton = findViewById(R.id.foodFinderSearchButton);
         TextView resetButton = findViewById(R.id.foodFinderResetButton);
 
@@ -332,12 +330,12 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(gfButton.getCurrentTextColor() == getColor(R.color.colorText)) {
                     gfButton.setTextColor(getColor(R.color.colorAccent));
-                    gfButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                    gfButton.setBackground(getDrawable(R.drawable.container_contrast_outline));
                     foodFinderService.setGlutenFree(true);
                     numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     gfButton.setTextColor(getColor(R.color.colorText));
-                    gfButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                    gfButton.setBackground(getDrawable(R.drawable.container_primary_outline));
                     foodFinderService.setGlutenFree(false);
                     numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
@@ -348,33 +346,33 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(vegetarianButton.getCurrentTextColor() == getColor(R.color.colorText)) {
                     vegetarianButton.setTextColor(getColor(R.color.colorAccent));
-                    vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+                    vegetarianButton.setBackground(getDrawable(R.drawable.container_contrast_outline));
                     foodFinderService.setVegetarian(true);
                     numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 } else {
                     vegetarianButton.setTextColor(getColor(R.color.colorText));
-                    vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                    vegetarianButton.setBackground(getDrawable(R.drawable.container_primary_outline));
                     foodFinderService.setVegetarian(false);
                     numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
                 }
             }
         });
-        veganButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(veganButton.getCurrentTextColor() == getColor(R.color.colorText)) {
-                    veganButton.setTextColor(getColor(R.color.colorAccent));
-                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
-                    foodFinderService.setVegan(true);
-                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
-                } else {
-                    veganButton.setTextColor(getColor(R.color.colorText));
-                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
-                    foodFinderService.setVegan(false);
-                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
-                }
-            }
-        });
+//        veganButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(veganButton.getCurrentTextColor() == getColor(R.color.colorText)) {
+//                    veganButton.setTextColor(getColor(R.color.colorAccent));
+//                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_contrast_outline));
+//                    foodFinderService.setVegan(true);
+//                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
+//                } else {
+//                    veganButton.setTextColor(getColor(R.color.colorText));
+//                    veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+//                    foodFinderService.setVegan(false);
+//                    numResultsText.setText(String.valueOf(foodFinderService.findFoods(allFoods).size()));
+//                }
+//            }
+//        });
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -383,11 +381,11 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
                 proteinSlider.repositionThumbs();
                 carbSlider.repositionThumbs();
                 vegetarianButton.setTextColor(getColor(R.color.colorText));
-                vegetarianButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
-                veganButton.setTextColor(getColor(R.color.colorText));
-                veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                vegetarianButton.setBackground(getDrawable(R.drawable.container_primary_outline));
+//                veganButton.setTextColor(getColor(R.color.colorText));
+//                veganButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
                 gfButton.setTextColor(getColor(R.color.colorText));
-                gfButton.setBackground(getDrawable(R.drawable.rounded_container_primary_outline));
+                gfButton.setBackground(getDrawable(R.drawable.container_primary_outline));
                 numResultsText.setText(String.valueOf(allFoods.size()));
                 foodFinderService.resetSettings();
             }

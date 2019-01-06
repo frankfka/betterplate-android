@@ -481,12 +481,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="4sp"
-                        android:text="GF"
+                        android:background="@drawable/container_primary_outline"
+                        android:padding="8dp"
+                        android:text="Gluten Free"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/veganButton"
+                        app:layout_constraintStart_toEndOf="@+id/vegetarianButton"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
@@ -495,27 +495,12 @@
                         style="@style/normalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="4sp"
+                        android:background="@drawable/container_primary_outline"
+                        android:padding="8dp"
                         android:text="Vegetarian"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <Button
-                        android:id="@+id/veganButton"
-                        style="@style/normalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/rounded_container_primary_outline"
-                        android:padding="4sp"
-                        android:text="Vegan"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/vegetarianButton"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
@@ -543,7 +528,6 @@
                 <TextView
                     android:id="@+id/foodSearchNumResultsTitle"
                     android:layout_width="wrap_content"
-                    style="@style/normalText.bold"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Number of Results: "

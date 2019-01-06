@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Betterplate - Android.iml" filepath="$PROJECT_DIR$/Betterplate - Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/betterplate.iml" filepath="$PROJECT_DIR$/betterplate.iml" />
     </modules>
   </component>
 </project>

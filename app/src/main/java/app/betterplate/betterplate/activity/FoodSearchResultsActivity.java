@@ -25,6 +25,7 @@ public class FoodSearchResultsActivity extends AppCompatActivity {
     private static String SORT_DEC_PROTEIN =  "Protein (High to Low)";
     private static String SORT_INC_CARBS = "Carbohydrates (Low to High)";
     private static String SORT_INC_FAT = "Fat (Low to High)";
+    private static String SORT_DEC_HEALTH = "Health Score (High to Low)";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class FoodSearchResultsActivity extends AppCompatActivity {
         final RecyclerView foodRecycler = findViewById(R.id.foodSearchResultsRecycler);
 
 
-        final String[] items = new String[]{SORT_INC_CALORIES, SORT_DEC_PROTEIN, SORT_INC_CARBS, SORT_INC_FAT};
+        final String[] items = new String[]{SORT_INC_CALORIES, SORT_DEC_PROTEIN, SORT_INC_CARBS, SORT_INC_FAT, SORT_DEC_HEALTH};
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, R.layout.sort_spinner_item, items);
         sortBySpinner.setAdapter(spinnerAdapter);
@@ -71,6 +72,8 @@ public class FoodSearchResultsActivity extends AppCompatActivity {
                         foodRecycler.setAdapter(new MenuListAdapter(SortService.sortFoods(foods, SortService.SORT_BY_INC_CARBS)));
                     } else if (selection.equals(SORT_INC_FAT)) {
                         foodRecycler.setAdapter(new MenuListAdapter(SortService.sortFoods(foods, SortService.SORT_BY_INC_FAT)));
+                    } else if (selection.equals(SORT_DEC_HEALTH)) {
+                        foodRecycler.setAdapter(new MenuListAdapter(SortService.sortFoods(foods, SortService.SORT_BY_DEC_HEALTH)));
                     }
 
                 }
