@@ -34,6 +34,7 @@ import app.betterplate.betterplate.adapter.FoodNutritionListAdapter;
 import app.betterplate.betterplate.data.core.Food;
 import app.betterplate.betterplate.data.core.FoodComponent;
 import app.betterplate.betterplate.data.core.Nutrition;
+import app.betterplate.betterplate.service.HealthService;
 import app.betterplate.betterplate.service.MealService;
 import app.betterplate.betterplate.service.DatabaseService;
 import app.betterplate.betterplate.service.StringFormatterService;

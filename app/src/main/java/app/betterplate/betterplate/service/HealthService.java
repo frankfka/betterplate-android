@@ -11,6 +11,25 @@ public class HealthService {
         + 0.561*nutrition.getFiber() - 0.0245*nutrition.getSugar() + 0.123*nutrition.getProtein()
         + 0.0234*nutrition.getVitaminA() + 0.00399*nutrition.getVitaminC() + 0.0137*nutrition.getCalcium() - 0.0186*nutrition.getIron();
     }
+
+    // Standardize this somehow?
+    public static String getHealthWarnings(Nutrition nutrition) {
+        String warningString = "";
+        if (nutrition.getCalories() > 1100) {
+            warningString = warningString.concat("High in Calories\n");
+        }
+        if (nutrition.getSodium() > 1200) {
+            warningString = warningString.concat("High in Sodium\n");
+        }
+        if (nutrition.getSugar() > 20) {
+            warningString = warningString.concat("High in Sugar\n");
+        }
+        if (nutrition.getTransFat() > 1) {
+            warningString = warningString.concat("High in Trans Fats\n");
+        }
+
+        return warningString.trim();
+    }
 //
 //    public static double getHealthScoreNew(Nutrition nutrition) {
 //        double sodium = nutrition.getSodium();

@@ -16,6 +16,7 @@ import java.util.List;
 import app.betterplate.betterplate.R;
 import app.betterplate.betterplate.activity.MenuItemDetailsActivity;
 import app.betterplate.betterplate.data.core.Food;
+import app.betterplate.betterplate.service.HealthService;
 import app.betterplate.betterplate.service.StringFormatterService;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuListHolder> {
@@ -61,6 +62,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
         TextView itemTitleView = holder.view.findViewById(R.id.menuItemTitle);
         TextView itemDetailsView = holder.view.findViewById(R.id.menuItemDetails);
         TextView itemNutritionView = holder.view.findViewById(R.id.menuItemNutrition);
+        TextView itemWarningView = holder.view.findViewById(R.id.menuItemWarning);
         ConstraintLayout parentLayout = holder.view.findViewById(R.id.menuItemMainConstraintLayout);
 
         final Food food = searchableFoods.get(position);
@@ -72,6 +74,12 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
             itemDetailsView.setVisibility(View.GONE);
         } else {
             itemDetailsView.setText(itemDetailsString);
+        }
+        String itemWarningString = HealthService.getHealthWarnings(food.getNutritionalInfo());
+        if(itemWarningString.isEmpty()) {
+            itemWarningView.setVisibility(View.GONE);
+        } else {
+            itemWarningView.setText(itemWarningString);
         }
 
         itemDetailsView.setText(itemDetailsString.trim());
@@ -86,6 +94,14 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
             }
         });
 
+    }
+
+    /**
+     * Necessary to have health warnings
+     */
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     // Return the size of your dataset (invoked by the layout manager)
