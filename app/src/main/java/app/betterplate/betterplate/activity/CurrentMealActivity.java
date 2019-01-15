@@ -1,6 +1,7 @@
 package app.betterplate.betterplate.activity;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +9,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,8 +25,10 @@ import app.betterplate.betterplate.adapter.FoodNutritionListAdapter;
 import app.betterplate.betterplate.adapter.MealListAdapter;
 import app.betterplate.betterplate.data.core.Food;
 import app.betterplate.betterplate.data.core.Nutrition;
+import app.betterplate.betterplate.service.FoodService;
 import app.betterplate.betterplate.service.MealService;
 import app.betterplate.betterplate.service.StringFormatterService;
+import app.betterplate.betterplate.service.ViewHelperService;
 
 public class CurrentMealActivity extends AppCompatActivity {
 
@@ -97,6 +104,7 @@ public class CurrentMealActivity extends AppCompatActivity {
         return true;
     }
 
+    // Called whenever the meal is updated
     public void updateCurrentMeal() {
         try {
             currentMealFoods = mealService.getCurrentMeal();
@@ -122,6 +130,21 @@ public class CurrentMealActivity extends AppCompatActivity {
 
         if(mealListAdapter != null) {
             mealListAdapter.updateCurrentMeal();
+        }
+
+        // Pie chart
+        PieChart chart = findViewById(R.id.nutrition_breakdown_chart);
+        chart.setNoDataText("Add items to your meal to see the macronutrient breakdown.");
+        chart.setNoDataTextColor(R.color.colorText);
+        if(!currentMealFoods.isEmpty()) {
+            SparseArray<Double> macros = FoodService.getMacrosInPercent(currentMealFoods);
+            ViewHelperService.setUpNutritionPieChart(chart,
+                    macros.get(FoodService.CARBS).floatValue(),
+                    macros.get(FoodService.FAT).floatValue(),
+                    macros.get(FoodService.PROTEIN).floatValue());
+        } else {
+            chart.setData(null);
+            chart.invalidate();
         }
 
     }

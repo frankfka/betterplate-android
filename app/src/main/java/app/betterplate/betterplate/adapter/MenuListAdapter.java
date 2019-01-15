@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import java.util.List;
 import app.betterplate.betterplate.R;
 import app.betterplate.betterplate.activity.MenuItemDetailsActivity;
 import app.betterplate.betterplate.data.core.Food;
-import app.betterplate.betterplate.service.HealthService;
+import app.betterplate.betterplate.service.FoodService;
 import app.betterplate.betterplate.service.StringFormatterService;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuListHolder> {
@@ -75,7 +74,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
         } else {
             itemDetailsView.setText(itemDetailsString);
         }
-        String itemWarningString = HealthService.getHealthWarnings(food.getNutritionalInfo());
+        String itemWarningString = FoodService.getHealthWarnings(food.getNutritionalInfo());
         if(itemWarningString.isEmpty()) {
             itemWarningView.setVisibility(View.GONE);
         } else {

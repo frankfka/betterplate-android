@@ -10,8 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,6 +24,8 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -34,10 +36,11 @@ import app.betterplate.betterplate.adapter.FoodNutritionListAdapter;
 import app.betterplate.betterplate.data.core.Food;
 import app.betterplate.betterplate.data.core.FoodComponent;
 import app.betterplate.betterplate.data.core.Nutrition;
-import app.betterplate.betterplate.service.HealthService;
+import app.betterplate.betterplate.service.FoodService;
 import app.betterplate.betterplate.service.MealService;
 import app.betterplate.betterplate.service.DatabaseService;
 import app.betterplate.betterplate.service.StringFormatterService;
+import app.betterplate.betterplate.service.ViewHelperService;
 
 public class MenuItemDetailsActivity extends AppCompatActivity {
 
@@ -113,40 +116,18 @@ public class MenuItemDetailsActivity extends AppCompatActivity {
 
         // Nutrition breakdown charting
         PieChart chart = findViewById(R.id.nutrition_breakdown_chart);
-        List<PieEntry> entries = new ArrayList<>();
-
-        double totalMacros = nutrition.getCarbohydrates() + nutrition.getFat() + nutrition.getProtein();
-        float percentageCarbs = (float) (nutrition.getCarbohydrates() / totalMacros);
-        float percentageFat = (float) (nutrition.getFat() / totalMacros);
-        float percentageProtein = (float) (nutrition.getProtein() / totalMacros);
-        entries.add(new PieEntry(percentageProtein, "Protein"));
-        entries.add(new PieEntry(percentageCarbs, "Carbohydrates"));
-        entries.add(new PieEntry(percentageFat, "Fat"));
-
-        PieDataSet nutritionBreakdownDataset = new PieDataSet(entries, "");
-        nutritionBreakdownDataset.setColors(ColorTemplate.MATERIAL_COLORS);
-        nutritionBreakdownDataset.setSelectionShift(0);
-        PieData nutritionData = new PieData(nutritionBreakdownDataset);
-        if(percentageCarbs < 0.1 && percentageFat < 0.1 || percentageCarbs < 0.1 && percentageProtein < 0.1
-                || percentageFat < 0.1 && percentageProtein < 0.1) {
-            nutritionData.setDrawValues(false);
+        chart.setNoDataText("This item has no macronutrients.");
+        chart.setNoDataTextColor(R.color.colorText);
+        // Only display chart if significant cals are in the food
+        if(food.getNutritionalInfo().getCalories() >= 4) {
+            SparseArray<Double> macros = FoodService.getMacrosInPercent(Collections.singletonList(food));
+            ViewHelperService.setUpNutritionPieChart(chart,
+                    macros.get(FoodService.CARBS).floatValue(),
+                    macros.get(FoodService.FAT).floatValue(),
+                    macros.get(FoodService.PROTEIN).floatValue());
         }
-        nutritionData.setValueTextColor(Color.WHITE);
-        nutritionData.setValueTextSize(16);
-        nutritionData.setValueFormatter(new PercentFormatter());
-        chart.setDrawEntryLabels(false);
-        chart.getDescription().setEnabled(false);
-        chart.setHoleRadius(20f);
-        chart.getLegend().setTextSize(16);
-        chart.getLegend().setFormSize(16);
-        chart.getLegend().setWordWrapEnabled(true);
-        chart.getLegend().setPosition(Legend.LegendPosition.RIGHT_OF_CHART_CENTER);
-        chart.setEntryLabelColor(Color.WHITE);
-        chart.setTransparentCircleRadius(0);
-        chart.setUsePercentValues(true);
-        chart.setTouchEnabled(false);
-        chart.setData(nutritionData);
-        chart.invalidate();
+        // Chart will display no data text otherwise
+
 
         /**
          * Set up add to meal button and snackbar

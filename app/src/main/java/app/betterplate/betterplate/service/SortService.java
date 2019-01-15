@@ -1,7 +1,5 @@
 package app.betterplate.betterplate.service;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +30,7 @@ public class SortService {
             //TODO refactor this somehow?
             if(listToSort.get(0).getNutritionalInfo().getHealthScore() == 0) {
                 for(Food food: listToSort) {
-                    food.getNutritionalInfo().setHealthScore(HealthService.getHealthScorePublished(food.getNutritionalInfo()));
+                    food.getNutritionalInfo().setHealthScore(FoodService.getHealthScorePublished(food.getNutritionalInfo()));
                 }
             }
             Collections.sort(listToSort, Food.SORT_BY_DEC_HEALTH);

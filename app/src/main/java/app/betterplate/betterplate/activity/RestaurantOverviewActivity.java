@@ -169,7 +169,7 @@ public class RestaurantOverviewActivity extends AppCompatActivity {
 //     */
 //    private List<Food> healthRank(List<Food> allFoods, int numberToReturn) {
 //        for (Food food: allFoods) {
-//            food.getNutritionalInfo().setHealthScore(HealthService.getHealthScorePublished(food.getNutritionalInfo()));
+//            food.getNutritionalInfo().setHealthScore(FoodService.getHealthScorePublished(food.getNutritionalInfo()));
 //        }
 //        List<Food> listToSort = new ArrayList<>(allFoods);
 //        Collections.sort(listToSort, Food.SORT_BY_DEC_HEALTH);
